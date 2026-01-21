@@ -21,6 +21,8 @@ Below is the result - a (likely OCD-fueled) Ralph Playbook that organizes the mi
 > [!TIP]
 > View as [📖 Formatted Guide →](https://ClaytonFarr.github.io/ralph-playbook/)
 
+Hope this helps you out - [@ClaytonFarr](https://x.com/ClaytonFarr)
+
 ---
 
 ## Table of Contents
@@ -716,7 +718,7 @@ interface ReviewResult {
 function createReview(config: {
   criteria: string; // What to evaluate (behavioral, observable)
   artifact: string; // Text content OR screenshot path
-  intelligence?: 'fast' | 'smart'; // Optional, defaults to 'fast'
+  intelligence?: "fast" | "smart"; // Optional, defaults to 'fast'
 }): Promise<ReviewResult>;
 ```
 
@@ -737,37 +739,38 @@ The fixture implementation selects appropriate models. (Examples are current opt
 ##### `llm-review.test.ts` - Shows Ralph how to use it (text and vision examples):
 
 ```typescript
-import { createReview } from '@/lib/llm-review';
+import { createReview } from "@/lib/llm-review";
 
 // Example 1: Text evaluation
-test('welcome message tone', async () => {
+test("welcome message tone", async () => {
   const message = generateWelcomeMessage();
   const result = await createReview({
     criteria:
-      'Message uses warm, conversational tone appropriate for design professionals while clearly conveying value proposition',
+      "Message uses warm, conversational tone appropriate for design professionals while clearly conveying value proposition",
     artifact: message, // Text content
   });
   expect(result.pass).toBe(true);
 });
 
 // Example 2: Vision evaluation (screenshot path)
-test('dashboard visual hierarchy', async () => {
-  await page.screenshot({ path: './tmp/dashboard.png' });
+test("dashboard visual hierarchy", async () => {
+  await page.screenshot({ path: "./tmp/dashboard.png" });
   const result = await createReview({
-    criteria: 'Layout demonstrates clear visual hierarchy with obvious primary action',
-    artifact: './tmp/dashboard.png', // Screenshot path
+    criteria:
+      "Layout demonstrates clear visual hierarchy with obvious primary action",
+    artifact: "./tmp/dashboard.png", // Screenshot path
   });
   expect(result.pass).toBe(true);
 });
 
 // Example 3: Smart intelligence for complex judgment
-test('brand visual consistency', async () => {
-  await page.screenshot({ path: './tmp/homepage.png' });
+test("brand visual consistency", async () => {
+  await page.screenshot({ path: "./tmp/homepage.png" });
   const result = await createReview({
     criteria:
-      'Visual design maintains professional brand identity suitable for financial services while avoiding corporate sterility',
-    artifact: './tmp/homepage.png',
-    intelligence: 'smart', // Complex aesthetic judgment
+      "Visual design maintains professional brand identity suitable for financial services while avoiding corporate sterility",
+    artifact: "./tmp/homepage.png",
+    intelligence: "smart", // Complex aesthetic judgment
   });
   expect(result.pass).toBe(true);
 });
